@@ -1,0 +1,14 @@
+ 
+Compiling and linking the model (Visual C++). 
+ 
+64-bit mode activated. 
+dsmodel.c
+dsmodel.c(247): warning C4267: funkce: Pýevod z: size_t na: int, m…§e doj¡t ke ztr tØ dat.
+Microsoft (R) Incremental Linker Version 14.42.34436.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/stack:0x500000 /MACHINE:X64 /NODEFAULTLIB:msvcrt.lib /NODEFAULTLIB:libcmtd.lib /NODEFAULTLIB:msvcrtd.lib /OPT:NOREF libdsdll.lib legacy_stdio_definitions.lib 
+   Vytv ý¡ se knihovna dymosim.lib a objekt dymosim.exp.
+ 
+Successful generation of Dymosim with DDE. 
+ 

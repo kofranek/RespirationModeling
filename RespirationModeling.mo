@@ -565,39 +565,59 @@ package RespirationModeling
       annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
             coordinateSystem(preserveAspectRatio=false)));
       Parts.AlvVent alvVent
-        annotation (Placement(transformation(extent={{-22,14},{38,64}})));
+        annotation (Placement(transformation(extent={{-10,-50},{50,0}})));
       Bodylight.Types.Constants.VolumeFlowRateConst VAi(k=8.1e-05)
-        annotation (Placement(transformation(extent={{-88,64},{-80,72}})));
+        annotation (Placement(transformation(extent={{-78,26},{-70,34}})));
       Bodylight.Types.Constants.PressureConst pressure(k(displayUnit="mmHg") =
           101325.0144354)
-        annotation (Placement(transformation(extent={{-78,52},{-70,60}})));
+        annotation (Placement(transformation(extent={{-68,-8},{-60,0}})));
       Bodylight.Types.Constants.TemperatureConst temperature(k(displayUnit=
               "degC") = 310.15)
-        annotation (Placement(transformation(extent={{-58,46},{-50,54}})));
+        annotation (Placement(transformation(extent={{-46,-18},{-38,-10}})));
       Bodylight.Types.Constants.FractionConst FiO2d(k(displayUnit="%") = 0.2095)
-        annotation (Placement(transformation(extent={{-90,36},{-82,44}})));
+        annotation (Placement(transformation(extent={{-78,-28},{-70,-20}})));
       Bodylight.Types.Constants.FractionConst FiCO2d(k(displayUnit="%") =
           0.0004)
-        annotation (Placement(transformation(extent={{-68,28},{-60,36}})));
+        annotation (Placement(transformation(extent={{-56,-36},{-48,-28}})));
       Bodylight.Types.Constants.MolarFlowRateConst MCO2(k=0.00016666666666667)
-        annotation (Placement(transformation(extent={{-86,-16},{-72,-6}})));
+        annotation (Placement(transformation(extent={{-74,-80},{-60,-70}})));
       Bodylight.Types.Constants.MolarFlowRateConst MO2(k=0.00018666666666667)
-        annotation (Placement(transformation(extent={{-90,6},{-76,16}})));
+        annotation (Placement(transformation(extent={{-78,-58},{-64,-48}})));
+      Modelica.Blocks.Sources.Ramp ramp(
+        height=140,
+        duration=140,
+        offset=40)
+        annotation (Placement(transformation(extent={{-88,56},{-68,76}})));
+      Modelica.Blocks.Math.Product product1
+        annotation (Placement(transformation(extent={{20,50},{40,70}})));
+      Modelica.Blocks.Math.Gain gain(k(displayUnit="%") = 0.01)
+        annotation (Placement(transformation(extent={{-48,56},{-28,76}})));
     equation
-      connect(VAi.y, alvVent.VAi_BTPS) annotation (Line(points={{-79,68},{-60,
-              68},{-60,60},{-23.2,60},{-23.2,59.5}}, color={0,0,127}));
-      connect(pressure.y, alvVent.pressure) annotation (Line(points={{-69,56},{
-              -36,56},{-36,53.75},{-24.1,53.75}}, color={0,0,127}));
-      connect(temperature.y, alvVent.temperature) annotation (Line(points={{-49,
-              50},{-36,50},{-36,47.25},{-24.1,47.25}}, color={0,0,127}));
-      connect(FiO2d.y, alvVent.FiO2d) annotation (Line(points={{-81,40},{-32,40},
-              {-32,40.5},{-24.4,40.5}}, color={0,0,127}));
+      connect(pressure.y, alvVent.pressure) annotation (Line(points={{-59,-4},{
+              -50,-4},{-50,-6},{-20,-6},{-20,-10.25},{-12.1,-10.25}},
+                                                  color={0,0,127}));
+      connect(temperature.y, alvVent.temperature) annotation (Line(points={{-37,-14},
+              {-20,-14},{-20,-16.75},{-12.1,-16.75}},  color={0,0,127}));
+      connect(FiO2d.y, alvVent.FiO2d) annotation (Line(points={{-69,-24},{-40.7,
+              -24},{-40.7,-23.5},{-12.4,-23.5}},
+                                        color={0,0,127}));
       connect(FiCO2d.y, alvVent.FiCO2d)
-        annotation (Line(points={{-59,32},{-24.4,32}}, color={0,0,127}));
-      connect(MCO2.y, alvVent.CO2M) annotation (Line(points={{-70.25,-11},{
-              -70.25,-12},{-38,-12},{-38,16.25},{-24.1,16.25}}, color={0,0,127}));
-      connect(MO2.y, alvVent.O2M) annotation (Line(points={{-74.25,11},{-40,11},
-              {-40,24.25},{-23.5,24.25}}, color={0,0,127}));
+        annotation (Line(points={{-47,-32},{-12.4,-32}},
+                                                       color={0,0,127}));
+      connect(MCO2.y, alvVent.CO2M) annotation (Line(points={{-58.25,-75},{
+              -58.25,-76},{-20,-76},{-20,-47.75},{-12.1,-47.75}},
+                                                                color={0,0,127}));
+      connect(MO2.y, alvVent.O2M) annotation (Line(points={{-62.25,-53},{-62.25,
+              -54},{-22,-54},{-22,-39.75},{-11.5,-39.75}},
+                                          color={0,0,127}));
+      connect(VAi.y, product1.u2) annotation (Line(points={{-69,30},{10,30},{10,
+              54},{18,54}}, color={0,0,127}));
+      connect(ramp.y, gain.u)
+        annotation (Line(points={{-67,66},{-50,66}}, color={0,0,127}));
+      connect(gain.y, product1.u1)
+        annotation (Line(points={{-27,66},{18,66}}, color={0,0,127}));
+      connect(alvVent.VAi_BTPS, product1.y) annotation (Line(points={{-11.2,
+              -4.5},{-18,-4.5},{-18,8},{58,8},{58,60},{41,60}}, color={0,0,127}));
     end TestAlvVent;
   end Tests;
   annotation (uses(Modelica(version="4.0.0"), Bodylight(version="1.0")));
