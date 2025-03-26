@@ -1,0 +1,10 @@
+*.log
+*.exe
+*.dll
+*.mat
+*.mof
+work/
+__tmp/
+#Ignorovat OS specifické soubory
+.DS_Store
+Thumbs.db
